@@ -1,7 +1,0 @@
-CREATE TABLE IF NOT EXISTS workflow_state (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    batch_id BIGINT NOT NULL UNIQUE,
-    phase VARCHAR(50) NOT NULL,
-    last_event VARCHAR(100) NOT NULL,
-    updated_at TIMESTAMP NOT NULL
-);

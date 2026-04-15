@@ -28,8 +28,7 @@ else
     echo -e "\e[32m-> llama3.2 is ready.\e[0m"
 fi
 
-# 2. Go to backend directory
-cd "Uni OS - 1" || exit 1
+
 
 # 3. Build Backend using Maven Wrapper
 echo -e "\e[33m[2/4] Building Spring Boot Application...\e[0m"

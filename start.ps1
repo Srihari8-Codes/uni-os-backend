@@ -27,8 +27,6 @@ if (!($modelCheck -match "llama3\.2")) {
     Write-Host "-> llama3.2 is ready." -ForegroundColor Green
 }
 
-# 2. Go to backend directory
-cd "Uni OS - 1"
 
 # 3. Build Backend using Maven Wrapper
 Write-Host "[2/4] Building Spring Boot Application..." -ForegroundColor Yellow

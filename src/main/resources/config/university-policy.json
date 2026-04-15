@@ -1,0 +1,26 @@
+{
+  "universityName": "University OS",
+  "admissionPolicies": {
+    "cutoffPercentage": 60.0,
+    "eligibleSubjects": ["Mathematics", "Physics", "Chemistry", "English"],
+    "minimumSubjectsCount": 4,
+    "academicYear": "2026-27",
+    "programName": "Special Engineering & Advanced AI Batch",
+    "verificationProcess": "Manual entry must match uploaded marksheet verbatim. Any discrepancy results in immediate automatic disqualification without notice.",
+    "deadlineDate": "August 31, 2026",
+    "feeStructure": {
+      "applicationFee": "500 INR",
+      "examFee": "1200 INR"
+    },
+    "faqs": [
+      {
+        "question": "What is the cutoff for the Special Engineering batch?",
+        "answer": "The minimum aggregate score required is 60%. This is calculated based on your top 5 academic subjects from the uploaded 12th marksheet."
+      },
+      {
+        "question": "When will I get my exam details?",
+        "answer": "Once your application is 100% complete and our Eligibility Engine verifies your marks, you will receive an automated email with your login credentials for the University Entrance Portal."
+      }
+    ]
+  }
+}
