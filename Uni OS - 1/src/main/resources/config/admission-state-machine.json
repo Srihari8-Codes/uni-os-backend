@@ -1,0 +1,77 @@
+{
+  "steps": [
+    {
+      "id": "PERSONAL_INFO",
+      "label": "Personal Information",
+      "fields": [
+        {
+          "id": "fullName",
+          "label": "Full Name",
+          "type": "text",
+          "required": true,
+          "validation": {
+            "pattern": "^[a-zA-Z0-9\\s\\-]{3,100}$",
+            "message": "Full name must be at least 3 characters long."
+          },
+          "conversationalPrompt": "What is your full legal name as per your documents?"
+        },
+        {
+          "id": "email",
+          "label": "Email Address",
+          "type": "email",
+          "required": true,
+          "validation": {
+            "pattern": "^[A-Za-z0-9+_.-]+@(.+)$",
+            "message": "Please enter a valid email address."
+          },
+          "conversationalPrompt": "Great! Which email address should we use to send your admission updates?"
+        }
+      ],
+      "completionCondition": {
+        "type": "all_required_filled"
+      }
+    },
+    {
+      "id": "DOCUMENT_UPLOAD",
+      "label": "Document Upload",
+      "fields": [
+        {
+          "id": "marksheet",
+          "label": "12th Board Exam Result",
+          "type": "file",
+          "required": true,
+          "validation": {
+            "maxSizeMB": 5,
+            "allowedExtensions": [".pdf", ".jpg", ".png", ".jpeg"],
+            "message": "Please upload a clear scan of your marksheet (PDF or Image, max 5MB)."
+          },
+          "conversationalPrompt": "Almost there! Please upload a scanned copy of your 12th board marksheet."
+        }
+      ],
+      "completionCondition": {
+        "type": "all_required_filled"
+      }
+    },
+    {
+      "id": "ACADEMIC_VERIFICATION",
+      "label": "Academic Verification",
+      "fields": [
+        {
+          "id": "schoolMarks",
+          "label": "12th Board Total Marks",
+          "type": "number",
+          "required": true,
+          "validation": {
+            "min": 0,
+            "max": 600,
+            "message": "Please enter your total marks out of 600."
+          },
+          "conversationalPrompt": "I've received your marksheet! To verify, please tell me your exact total marks out of 600."
+        }
+      ],
+      "completionCondition": {
+        "type": "all_required_filled"
+      }
+    }
+  ]
+}

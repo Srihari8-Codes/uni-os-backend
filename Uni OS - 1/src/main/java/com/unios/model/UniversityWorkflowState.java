@@ -1,0 +1,29 @@
+package com.unios.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "app_workflow_state")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class UniversityWorkflowState {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private Long applicationId;
+
+    @Column(nullable = false)
+    private String currentStage; // SUBMITTED, ELIGIBILITY, EXAM, RANKING, ENROLLED
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+}
