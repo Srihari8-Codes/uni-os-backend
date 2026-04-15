@@ -4,85 +4,68 @@ A self-contained Spring Boot backend for the University OS platform. Built with 
 
 ## ⚙️ Prerequisites
 
-Before deploying, ensure the following are installed and running on your server/machine:
+Before deploying, ensure the following are installed on your server/machine:
 
 | Requirement | Version | Notes |
 |---|---|---|
-| **Java** | 21+ | `java -version` must work in terminal |
-| **PostgreSQL** | 14+ | Running on port `5432` |
-| **Ollama** | Latest | For local LLM inference |
+| **Java** | 21+ | (Verified automatically by startup scripts) |
+| **PostgreSQL**| 14+ | Running on port `5432` |
+| **Ollama** | Latest | Running locally for AI agents |
 
-> [!NOTE]
-> You do **not** need Maven, IntelliJ, or Eclipse. The Maven wrapper (`mvnw`) is bundled and will download everything automatically.
+> [!TIP]
+> **Easiest Install (Windows):** Open PowerShell as Administrator and run:
+> `winget install eclipse.temurin.21.jdk`
 
 ---
 
-## 🔑 Environment Variables
+## 🔑 Configuration & Secrets
 
-Set the following environment variables on your machine **before** running the server. Defaults are shown in brackets — **mandatory** fields have no safe default.
+The system is designed for "plug-and-play" deployment. It supports environment variables for all sensitive configuration. If a `secrets.properties` file is missing, the app will gracefully boot using the environment defaults below.
 
 | Variable | Description | Default |
 |---|---|---|
-| `DB_PASSWORD` | PostgreSQL password for the `postgres` user | `password` |
-| `MAIL_USERNAME` | Gmail address used to send emails | **(required)** |
+| `DB_PASSWORD` | PostgreSQL password for `postgres` user | `password` |
+| `MAIL_USERNAME` | Automated email sender address | **(required)** |
 | `MAIL_PASSWORD` | 16-character Gmail App Password | **(required)** |
-| `RETELL_API_KEY` | Retell AI API key | **(required)** |
-| `RETELL_AGENT_ID` | Retell AI agent ID | **(required)** |
-| `RETELL_FROM_NUMBER` | Retell AI phone number (e.g. `+16362751168`) | **(required)** |
-| `OLLAMA_API_URL` | Ollama generate endpoint | `http://localhost:11434/api/generate` |
-| `OCR_API_URL` | Ollama OCR endpoint | `http://localhost:11434` |
-| `FRONTEND_URL` | URL of the frontend app (used in emails) | `http://localhost:5173` |
-
-### Setting Variables
-
-**Windows (PowerShell):**
-```powershell
-$env:DB_PASSWORD="your_postgres_password"
-$env:MAIL_USERNAME="you@gmail.com"
-$env:MAIL_PASSWORD="your_16_char_app_password"
-$env:RETELL_API_KEY="your_retell_api_key"
-$env:RETELL_AGENT_ID="your_retell_agent_id"
-$env:RETELL_FROM_NUMBER="+1XXXXXXXXXX"
-$env:FRONTEND_URL="http://your-server-ip:5173"
-```
-
-**Linux / macOS (Bash):**
-```bash
-export DB_PASSWORD="your_postgres_password"
-export MAIL_USERNAME="you@gmail.com"
-export MAIL_PASSWORD="your_16_char_app_password"
-export RETELL_API_KEY="your_retell_api_key"
-export RETELL_AGENT_ID="your_retell_agent_id"
-export RETELL_FROM_NUMBER="+1XXXXXXXXXX"
-export FRONTEND_URL="http://your-server-ip:5173"
-```
+| `FRONTEND_URL` | URL of the frontend app | `http://localhost:5173` |
+| `APP_DB_AUTO_SEED`| Seed DB on first run (`always` / `never`) | `never` |
 
 ---
 
-## 🗄️ Database Setup
+## 🗄️ Database Setup (Fresh System)
 
-1. Install PostgreSQL and ensure it is running on port `5432`.
-2. Create a database named `unios`:
+1. **Create the DB**: Log into your PostgreSQL instance and run:
    ```sql
    CREATE DATABASE unios;
    ```
-3. The application will automatically create all tables on first boot (`spring.jpa.hibernate.ddl-auto=update`).
+2. **First-Time Seeding**: To automatically populate the database with required schema and seed data, set the auto-seed variable to `always` for the first run:
 
-**First-time seed (optional):** If you have a pre-populated SQL dump, place it at `src/main/resources/db/unios_dump.sql` and set the following env var before the first run:
-```bash
-# Linux/Mac
-export APP_DB_AUTO_SEED=always
+   **Windows (PowerShell):**
+   ```powershell
+   $env:APP_DB_AUTO_SEED="always"
+   .\start.ps1
+   ```
 
-# Windows
-$env:APP_DB_AUTO_SEED="always"
-```
-> Switch back to `never` after the first successful boot.
+   **Linux/Mac (Bash):**
+   ```bash
+   export APP_DB_AUTO_SEED=always
+   ./start.sh
+   ```
+
+3. **Subsequent Runs**: After the first successful boot, you can clear the variable or set it to `never`. The system will retain all existing data.
 
 ---
 
 ## 🚀 How to Run
 
-### Option A — Native (Recommended)
+### Automated Startup (Recommended)
+
+Our startup scripts perform a **5-step health check** to ensure a smooth boot:
+1. **Java Verification**: Ensures Java 21+ is in your PATH.
+2. **LLM Connection**: Verifies Ollama is running (and starts it if not).
+3. **Model Management**: Automatically pulls `llama3.2` if it's missing.
+4. **Automated Build**: Compiles the project using the bundled Maven wrapper.
+5. **Clean Boot**: Activates the server with optimized, low-noise logging.
 
 **Windows:**
 ```powershell
@@ -95,50 +78,21 @@ chmod +x start.sh
 ./start.sh
 ```
 
-The startup script will:
-1. Check if Ollama is running and pull `llama3.2` if not present.
-2. Compile the Spring Boot application with the Maven Wrapper.
-3. Boot the server on `http://0.0.0.0:8080`.
+---
+
+## 🛠️ Troubleshooting
+
+- **`java` not recognized**: Ensure you have installed Java 21 and restarted your terminal.
+- **`ollama` not recognized**: Ensure Ollama is installed. If on Windows, restart your terminal after installation so the PATH is updated.
+- **Port 8080 already in use**: Another app is running on the default port. You can kill the process or change the port in `application.properties`.
+- **Database Connection Refused**: Ensure PostgreSQL is running and you have created the `unios` database.
 
 ---
 
-### Option B — Docker
-
-```bash
-# Build the image
-docker build -t unios-backend .
-
-# Run the container with all required env vars
-docker run -d \
-  -p 8080:8080 \
-  -e DB_PASSWORD="your_postgres_password" \
-  -e MAIL_USERNAME="you@gmail.com" \
-  -e MAIL_PASSWORD="your_16_char_app_password" \
-  -e RETELL_API_KEY="your_retell_api_key" \
-  -e RETELL_AGENT_ID="your_retell_agent_id" \
-  -e RETELL_FROM_NUMBER="+1XXXXXXXXXX" \
-  -e FRONTEND_URL="http://your-server-ip:5173" \
-  -e OLLAMA_API_URL="http://host.docker.internal:11434/api/generate" \
-  -e OCR_API_URL="http://host.docker.internal:11434" \
-  --name unios-backend \
-  unios-backend
-```
-
-> **Note:** When running via Docker, Ollama must be running on the **host machine**. The `host.docker.internal` hostname resolves to the host from inside the container (on Linux, add `--add-host=host.docker.internal:host-gateway`).
-
----
-
-## 📡 API Overview
-
-Base URL: `http://your-server:8080/api`
-
-| Method | Endpoint | Description | Role |
-|---|---|---|---|
-| POST | `/auth/login` | Authenticate and get JWT | All |
-| POST | `/auth/register` | Register user (requires `ADMIN_SECRET`) | Admin |
-| GET | `/users/profile` | Get current user profile | All |
-| POST | `/results/upload` | Upload student results | Admin |
-| GET | `/schedule/generate` | Generate timetable via OptaPlanner | Admin |
+## 📡 API Testing
+Once the server is running, you can verify it with Postman:
+- **Health Check**: `GET http://localhost:8080/api/universities`
+- **Expected Outcome**: Should return a `200 OK` with a JSON array of universities.
 
 ---
 
@@ -147,14 +101,13 @@ Base URL: `http://your-server:8080/api`
 ```
 src/
 ├── main/
-│   ├── java/org/example/
-│   │   ├── config/         # Security, JWT, CORS config
+│   ├── java/com/unios/
+│   │   ├── config/         # Security, JWT, CORS, and Property config
 │   │   ├── controller/     # REST controllers
-│   │   ├── service/        # Business logic & agents
+│   │   ├── service/        # Business logic & AI agents
 │   │   ├── repository/     # JPA data repositories
-│   │   ├── model/          # Entity & DTO classes
-│   │   └── agent/          # Ollama-powered AI agents
+│   │   └── model/          # Entity classes
 │   └── resources/
 │       ├── application.properties
-│       └── db/             # SQL seed files
+│       └── db/             # Optimized SQL seed data (unios_dump.sql)
 ```
