@@ -76,9 +76,12 @@ The system is designed for "plug-and-play" deployment. It supports environment v
 
    **Windows (PowerShell):**
    ```powershell
-   $env:APP_DB_AUTO_SEED="always"
-   .\start.ps1
-   ```
+    $env:APP_DB_AUTO_SEED="always"
+    .\start.ps1
+    ```
+
+> [!IMPORTANT]  
+> **Surgical Reset:** Setting `always` will perform a "Clean Slate" reset of the core university tables (users, students, etc.) but is smart enough to preserve system-critical Hibernate tables. This ensures you always start with a fresh, valid data set without breaking the app.
 
    **Linux/Mac (Bash):**
    ```bash
