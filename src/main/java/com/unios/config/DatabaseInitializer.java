@@ -47,7 +47,7 @@ public class DatabaseInitializer {
         try {
             // Check if the database already has university data
             Integer count = jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM university", Integer.class);
+                "SELECT COUNT(*) FROM universities", Integer.class);
 
             if (count != null && count > 0) {
                 log.info("[DB-INIT] Database already has {} university records. Skipping seed.", count);

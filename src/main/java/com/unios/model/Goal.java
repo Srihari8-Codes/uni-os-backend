@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 
 @Entity
-@Table(name = "goals")
+@Table(name = "university_goals")
 @Getter
 @Setter
 @NoArgsConstructor
