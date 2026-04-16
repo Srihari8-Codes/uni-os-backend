@@ -2,6 +2,7 @@ package com.unios.config;
 
 import com.unios.model.Goal;
 import com.unios.service.orchestrator.GoalEngineService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
