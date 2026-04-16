@@ -28,8 +28,8 @@ public class DatabaseInitializer {
 
     private final JdbcTemplate jdbcTemplate;
 
-    @Value("${app.db.auto-seed:false}")
-    private boolean autoSeed;
+    @Value("${APP_DB_AUTO_SEED:never}")
+    private String autoSeed;
 
     public DatabaseInitializer(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -37,8 +37,8 @@ public class DatabaseInitializer {
 
     @EventListener(ApplicationReadyEvent.class)
     public void seedDatabaseIfEmpty() {
-        if (!autoSeed) {
-            log.info("[DB-INIT] Auto-seed is disabled. Skipping. (Set app.db.auto-seed=true on first deployment)");
+        if (!"always".equalsIgnoreCase(autoSeed)) {
+            log.info("[DB-INIT] Auto-seed is not set to 'always'. Skipping.");
             return;
         }
 
