@@ -29,6 +29,7 @@ public class GoalEngineService {
                 .agentName(agentName)
                 .name(description)          // required, not-null column
                 .description(description)
+                .goalStatement(description)  // Map description to statement for consistency
                 .category(type.name())      // populate category from type for consistency
                 .constraints(constraints)
                 .successCriteria(successCriteria)
