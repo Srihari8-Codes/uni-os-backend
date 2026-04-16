@@ -2,6 +2,29 @@
 
 A self-contained Spring Boot backend for the University OS platform. Built with Java 21, Spring Security, PostgreSQL, Ollama (local LLM), and Retell AI.
 
+---
+
+## ⚡ Fast-Track Deployment (Clean Start)
+
+If you are deploying on a fresh system, run these commands for a guaranteed first-time success:
+
+```powershell
+# 1. Prepare Git
+git config --global http.postBuffer 524288000
+
+# 2. Clone the Repository
+git clone https://github.com/Srihari8-Codes/uni-os-backend.git
+cd uni-os-backend
+
+# 3. Setup Environment (Windows PowerShell)
+$env:APP_DB_AUTO_SEED="always"
+
+# 4. Start the Ecosystem
+.\start.ps1
+```
+
+---
+
 ## ⚙️ Prerequisites
 
 Before deploying, ensure the following are installed on your server/machine:
@@ -99,6 +122,13 @@ chmod +x start.sh
 - **`ollama` not recognized**: Ensure Ollama is installed. If on Windows, restart your terminal after installation so the PATH is updated.
 - **Port 8080 already in use**: Another app is running on the default port. You can kill the process or change the port in `application.properties`.
 - **Database Connection Refused**: Ensure PostgreSQL is running and you have created the `unios` database.
+- **`database "unios" is being accessed by other users`**: You cannot delete a database while sessions are active. To "factory reset" your DB, run this in your Postgres terminal:
+  ```sql
+  \c postgres
+  SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'unios';
+  DROP DATABASE unios;
+  CREATE DATABASE unios;
+  ```
 
 ---
 
