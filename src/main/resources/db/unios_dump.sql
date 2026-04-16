@@ -1,3 +1,9 @@
+-- CLEAN SLATE: Reset public schema before seeding
+DROP SCHEMA IF EXISTS public CASCADE;
+CREATE SCHEMA public;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO public;
+
 --
 -- PostgreSQL database dump
 --
