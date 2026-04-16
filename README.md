@@ -8,12 +8,23 @@ Before deploying, ensure the following are installed on your server/machine:
 
 | Requirement | Version | Notes |
 |---|---|---|
-| **Java** | 21+ | (Verified automatically by startup scripts) |
-| **PostgreSQL**| 14+ | Running on port `5432` |
 | **Ollama** | Latest | Running locally for AI agents |
 
+> [!NOTE]
+> You do **not** need Maven, IntelliJ, or Eclipse. The Maven wrapper (`mvnw`) is bundled, and our **Automated Startup Scripts** handle environment verification and building for you.
+
+### 📥 Java Download Guide (Adoptium.net)
+If you don't have Java 21, follow these steps for the cleanest experience:
+1. **Go to**: [Adoptium.net (Java 21)](https://adoptium.net/temurin/releases/?version=21&os=windows&arch=x64)
+2. **Download**: Click the **.msi** button for Windows x64.
+3. **Install**: Run the installer and click **Next**.
+4. **Crucial Step**: When the "Custom Setup" screen appears, ensure you select **"Will be installed on local hard drive"** for:
+   - `Add to PATH`
+   - `Set JAVA_HOME variable`
+5. **Verify**: Restart your terminal and type `java -version`.
+
 > [!TIP]
-> **Easiest Install (Windows):** Open PowerShell as Administrator and run:
+> **Pro Way (Windows):** Open PowerShell as Administrator and run:
 > `winget install eclipse.temurin.21.jdk`
 
 ---
