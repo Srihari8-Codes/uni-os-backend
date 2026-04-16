@@ -3312,5 +3312,3 @@ ALTER TABLE ONLY public.graduation_candidates
 -- PostgreSQL database dump complete
 --
 
-\unrestrict mWBt3EDCt87C2fvggo99ekerdVJhltxAFQe27kJ7U63mjgYJcj8rznnPyoaBZxH
-
