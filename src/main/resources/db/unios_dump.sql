@@ -2,8 +2,6 @@
 -- PostgreSQL database dump
 --
 
-\restrict mWBt3EDCt87C2fvggo99ekerdVJhltxAFQe27kJ7U63mjgYJcj8rznnPyoaBZxH
-
 -- Dumped from database version 18.2
 -- Dumped by pg_dump version 18.2
 
