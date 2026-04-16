@@ -93,6 +93,8 @@ chmod +x start.sh
 
 ## 🛠️ Troubleshooting
 
+- **`git clone` RPC failed**: The repository history may be large. Increase your Git buffer by running:
+  `git config --global http.postBuffer 524288000`
 - **`java` not recognized**: Ensure you have installed Java 21 and restarted your terminal.
 - **`ollama` not recognized**: Ensure Ollama is installed. If on Windows, restart your terminal after installation so the PATH is updated.
 - **Port 8080 already in use**: Another app is running on the default port. You can kill the process or change the port in `application.properties`.
