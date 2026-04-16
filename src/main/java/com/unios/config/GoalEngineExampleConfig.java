@@ -23,6 +23,7 @@ public class GoalEngineExampleConfig {
         // Admissions goal (500 seats)
         goalEngineService.createGoal(
             Goal.GoalType.ADMISSIONS,
+            "AdmissionsAgent",
             "Fall 2026 Batch Enrollment",
             Map.of("maxWaitlistSize", 100, "genderRatioMin", 0.4),
             Map.of("seatsFilled", 500.0),
@@ -32,6 +33,7 @@ public class GoalEngineExampleConfig {
         // Attendance goal (80%)
         goalEngineService.createGoal(
             Goal.GoalType.ATTENDANCE,
+            "AttendanceGuardian",
             "Core Computing Sem 4 Attendance Stabilization",
             Map.of("maxAlertsPerDay", 50),
             Map.of("attendanceRate", 80.0),

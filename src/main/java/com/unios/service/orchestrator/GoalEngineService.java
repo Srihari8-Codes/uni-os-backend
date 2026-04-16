@@ -19,13 +19,14 @@ public class GoalEngineService {
     private final GoalRepository goalRepository;
 
     @Transactional
-    public Goal createGoal(Goal.GoalType type, String description, Map<String, Object> constraints, 
+    public Goal createGoal(Goal.GoalType type, String agentName, String description, Map<String, Object> constraints, 
                            Map<String, Object> successCriteria, ZonedDateTime deadline) {
         
         validateConfig(constraints, successCriteria);
 
         Goal goal = Goal.builder()
                 .type(type)
+                .agentName(agentName)
                 .name(description)          // required, not-null column
                 .description(description)
                 .category(type.name())      // populate category from type for consistency
