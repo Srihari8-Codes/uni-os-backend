@@ -154,3 +154,20 @@ src/
 │       ├── application.properties
 │       └── db/             # Optimized SQL seed data (unios_dump.sql)
 ```
+
+---
+
+## ✅ Verification: What Success Looks Like
+
+When you run `.\start.ps1`, a successful boot will end with these specific lines in your console:
+
+```text
+? [CONSOLIDATED SEEDER] Starting database initialization...
+-> Seeding Universities...
+-> Seeded/Updated ADMIN: superadmin@unios.com
+? [CONSOLIDATED SEEDER] Database initialization complete.
+   Super Admin (dev only): superadmin@unios.com / password
+```
+
+You can also visit: `http://localhost:8080/api/universities`
+Expected: A JSON list containing your newly seeded university data.
