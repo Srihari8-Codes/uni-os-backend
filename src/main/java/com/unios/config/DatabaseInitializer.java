@@ -6,6 +6,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.BufferedReader;
@@ -36,6 +37,7 @@ public class DatabaseInitializer {
     }
 
     @EventListener(ApplicationReadyEvent.class)
+    @Order(1) // Run BEFORE GoalEngineExampleConfig (which is Order 2)
     public void seedDatabaseIfEmpty() {
         if (!"always".equalsIgnoreCase(autoSeed)) {
             log.info("[DB-INIT] Auto-seed is not set to 'always'. Skipping.");

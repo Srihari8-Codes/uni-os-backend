@@ -1,8 +1,33 @@
--- CLEAN SLATE: Reset public schema before seeding
-DROP SCHEMA IF EXISTS public CASCADE;
-CREATE SCHEMA public;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO public;
+-- CLEAN SLATE: Reset only the tables contained in this dump
+DROP TABLE IF EXISTS public.university CASCADE;
+DROP TABLE IF EXISTS public.users CASCADE;
+DROP TABLE IF EXISTS public.students CASCADE;
+DROP TABLE IF EXISTS public.admission_weights CASCADE;
+DROP TABLE IF EXISTS public.batches CASCADE;
+DROP TABLE IF EXISTS public.absence_reasons CASCADE;
+DROP TABLE IF EXISTS public.academic_records CASCADE;
+DROP TABLE IF EXISTS public.active_agent_interactions CASCADE;
+DROP TABLE IF EXISTS public.agent_activity_logs CASCADE;
+DROP TABLE IF EXISTS public.agent_conversations CASCADE;
+DROP TABLE IF EXISTS public.agent_memories CASCADE;
+DROP TABLE IF EXISTS public.agent_message_context CASCADE;
+DROP TABLE IF EXISTS public.agent_performance_metrics CASCADE;
+DROP TABLE IF EXISTS public.agent_tools CASCADE;
+DROP TABLE IF EXISTS public.agents CASCADE;
+DROP TABLE IF EXISTS public.attendance CASCADE;
+DROP TABLE IF EXISTS public.communication_logs CASCADE;
+DROP TABLE IF EXISTS public.complaints CASCADE;
+DROP TABLE IF EXISTS public.exam_results CASCADE;
+DROP TABLE IF EXISTS public.exam_schedules CASCADE;
+DROP TABLE IF EXISTS public.faculty CASCADE;
+DROP TABLE IF EXISTS public.fees CASCADE;
+DROP TABLE IF EXISTS public.financial_transactions CASCADE;
+DROP TABLE IF EXISTS public.graduation_candidates CASCADE;
+DROP TABLE IF EXISTS public.inventory CASCADE;
+DROP TABLE IF EXISTS public.leave_applications CASCADE;
+DROP TABLE IF EXISTS public.notifications CASCADE;
+DROP TABLE IF EXISTS public.staff CASCADE;
+DROP TABLE IF EXISTS public.timetable CASCADE;
 
 --
 -- PostgreSQL database dump

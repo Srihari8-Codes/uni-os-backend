@@ -2,9 +2,10 @@ package com.unios.config;
 
 import com.unios.model.Goal;
 import com.unios.service.orchestrator.GoalEngineService;
-import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.annotation.Order;
 
 import java.time.ZonedDateTime;
 import java.util.Map;
@@ -15,7 +16,8 @@ public class GoalEngineExampleConfig {
 
     private final GoalEngineService goalEngineService;
 
-    @PostConstruct
+    @EventListener(ApplicationReadyEvent.class)
+    @Order(2) // Run AFTER DatabaseInitializer (which is Order 1)
     public void deployExamples() {
         // Admissions goal (500 seats)
         goalEngineService.createGoal(
