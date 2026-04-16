@@ -1,6 +1,5 @@
 -- CLEAN SLATE: Reset only the tables contained in this dump
 DROP TABLE IF EXISTS public.universities CASCADE;
-DROP TABLE IF EXISTS public.university_goals CASCADE;
 DROP TABLE IF EXISTS public.users CASCADE;
 DROP TABLE IF EXISTS public.students CASCADE;
 DROP TABLE IF EXISTS public.admission_weights CASCADE;
